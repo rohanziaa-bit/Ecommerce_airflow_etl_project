@@ -13,20 +13,20 @@ jobs:
    name: validate airflow docker image
    runs-on: ubuntu-latest
 
-   steps:
-    - name: checkout reposoitory
-      uses: actions/checkout@v4
-
   steps:
-   - name: setup docker buildx
-     uses: docker/setup-buildx-action@v3
-   - name: Build E-commerce airflow image
-     uses: docker/build-push-action@v6
-     with:
-       context: ./ecommerce-project
-       file: ./ecommerce-project/Dockerfile
-       push: false
-       tags: ecommerce-airflow:ci
+  - name: checkout reposoitory
+    uses: actions/checkout@v4
+
+ steps:
+  - name: setup docker buildx
+    uses: docker/setup-buildx-action@v3
+  - name: Build E-commerce airflow image
+    uses: docker/build-push-action@v6
+    with:
+      context: ./ecommerce-project
+      file: ./ecommerce-project/Dockerfile
+      push: false
+      tags: ecommerce-airflow:ci
 
   
   

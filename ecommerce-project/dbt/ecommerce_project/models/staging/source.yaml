@@ -1,0 +1,34 @@
+version: 2
+
+sources:
+  - name: ecommerce
+    database: ECOMMERCE_PROJECT
+    schema: ECOMMERCE
+    tables: 
+      - name: products
+      - name: USERS_RAW
+      - name: carts
+models:
+  - name: stg_product
+    description: "Cleand staging view for ecommerce products"
+    
+    columns:
+     - name: product_id
+       description: "Unique identificer for each product"
+       data_tests:
+        - not_null
+        - unique
+
+     - name: product_name
+       data_tests:
+        - not_null
+
+
+     - name: price 
+       data_tests:
+        - not_null
+
+
+     - name: category
+       data_tests:
+        - not_null    

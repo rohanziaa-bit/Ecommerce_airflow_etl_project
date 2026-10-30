@@ -1,0 +1,24 @@
+{{config (materialized = "view")}}
+
+
+SELECT 
+C.CART_ID,
+C.CUSTOMER_ID,
+C.QUANTITY,
+C.PRODUCT_TOTAL,
+C.PRODUCT_DISCOUNTED_TOTAL,
+P.PRODUCT_ID,
+P.PRODUCT_NAME,
+P.PRICE,
+CASE 
+   WHEN P.STOCK < 0 THEN 'INVALID STOCK'
+   ELSE 'VALID STOCK'
+   END AS STOCK_STATUS,
+P.BRAND,
+round(P.RATING,2) AS Product_rating
+FROM {{ ref('stg_cart')}} as c
+inner join {{ ref('stg_product')}} as p
+  on C.PRODUCT_ID = P.PRODUCT_ID
+where  C.PRODUCT_TOTAL > C.PRODUCT_DISCOUNTED_TOTAL
+
+ 

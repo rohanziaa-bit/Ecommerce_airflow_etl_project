@@ -1,0 +1,17 @@
+{{config(materialized = 'view')}}
+
+SELECT 
+   C1 AS CART_ID,
+   C4 AS CUSTOMER_ID,
+   C7 AS PRODUCT_ID,
+   C8 AS PRODUCT_NAME,
+   C9 AS PRODUCT_PRICE,
+   C10 AS QUANTITY,
+   CAST(C11 AS NUMBER(12,2)) AS PRODUCT_TOTAL,    
+   CAST(C13 AS NUMBER(12,2)) AS PRODUCT_DISCOUNTED_TOTAL
+
+FROM {{ source('ecommerce','carts')}}
+
+where C1 IS NOT NULL
+  AND C9 >= 0
+  AND C10 IS NOT NULL
